@@ -85,6 +85,7 @@ Route::middleware(['auth', 'verified', 'checkrole:admin'])->prefix('admin')->gro
     Route::get('users/{user}', [UsersController::class, 'show'])->name('users.show');
 });
 
+Route::get('menu', [RestaurantController::class, 'menuResturant'])->name('menu');
 
 
 

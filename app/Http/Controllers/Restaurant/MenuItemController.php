@@ -49,16 +49,16 @@ class MenuItemController extends Controller
 
         //check if they reach a max of plan
         $statistics = Statistic::firstOrNew(['restaurant_id' => Auth::user()->restaurant_id]);
-        $limits = Subscription::where('restaurant_id', Auth::user()->restaurant_id)
-            ->where('status', 'active')
-            ->first()->plan;
+        // $limits = Subscription::where('restaurant_id', Auth::user()->restaurant_id)
+        //     ->where('status', 'active')
+        //     ->first()->plan;
 
-        //if they reach max items menu or media  display error
-        if ($statistics->count_menu_items >= $limits->max_menu_items) {
-            return back()->with('error', 'Maximum menu items limit reached.');
-        } elseif ($statistics->count_media >= $limits->max_media) {
-            return back()->with('error', 'Maximum media limit reached.');
-        }
+        // //if they reach max items menu or media  display error
+        // if ($statistics->count_menu_items >= $limits->max_menu_items) {
+        //     return back()->with('error', 'Maximum menu items limit reached.');
+        // } elseif ($statistics->count_media >= $limits->max_media) {
+        //     return back()->with('error', 'Maximum media limit reached.');
+        // }
 
 
         // dd($request->image);

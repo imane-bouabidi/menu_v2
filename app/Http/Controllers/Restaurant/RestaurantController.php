@@ -7,6 +7,7 @@ use App\Models\Restaurant;
 use App\Models\Statistic;
 use App\Models\Subscription;
 use App\Models\User;
+use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,10 +43,11 @@ class RestaurantController extends Controller
     }
 
 
-    public function menuResturant($restaurantName, Request $request)
+    public function menuResturant(Request $request)
     {
         //get resturnat by name
-        $restaurant = Restaurant::where('name', $restaurantName)->first();
+        $restaurant = Restaurant::where('name', 'restau1')->first();
+        // $cat = Menu::where('restaurant_id', $restaurant->id)->get();;
 
 
 
@@ -54,7 +56,7 @@ class RestaurantController extends Controller
         $menuItemsQuery = $restaurant->items();
 
         //get all categories
-        $Categories = $restaurant->menus();
+        $Categories =Menu::where('restaurant_id', $restaurant->id)->get();
 
 
         //checck if there is a filter with category filter it
@@ -64,8 +66,32 @@ class RestaurantController extends Controller
 
         $menuItems = $menuItemsQuery->get();
 
-        return view('menu', compact('menuItems', 'Categories'));
+        return view('menu', compact('menuItems', 'Categories','restaurant'));
     }
+    // public function menuResturant($restaurantName, Request $request)
+    // {
+    //     //get resturnat by name
+    //     $restaurant = Restaurant::where('name', $restaurantName)->first();
+
+
+
+
+    //     //get all items menu
+    //     $menuItemsQuery = $restaurant->items();
+
+    //     //get all categories
+    //     $Categories = $restaurant->menus();
+
+
+    //     //checck if there is a filter with category filter it
+    //     if ($request->has('category')) {
+    //         $menuItemsQuery->where('menu_id', $request->input('category'));
+    //     }
+
+    //     $menuItems = $menuItemsQuery->get();
+
+    //     return view('menu', compact('menuItems', 'Categories'));
+    // }
 
 
 
